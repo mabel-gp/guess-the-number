@@ -1,5 +1,3 @@
-
-# Importar el módulo random
 import random
 
 # Variables de alcance global
@@ -7,13 +5,12 @@ intentos_jugadora = []
 intentos_computadora = []
 
 def juego():
-    
-    # Uso global antes de declarar la variable, para decir que es de ámbito global
+    """Si jugadora o computadora aciertan el ciclo se rompe, y se ejecuta repetir juego"""
+
     global numero_aleatorio
     numero_aleatorio = random.randint(1, 100)
     print('\n¡Hola! Elige un número entre 1 y 100\n')
     
-    # El bucle continúa hasta que encuentra al comando break
     while True:
         
         if jugadora(numero_aleatorio):
@@ -27,35 +24,38 @@ def juego():
 
 
 def jugadora(numero_aleatorio):
+    """Devuelve True cuando la jugadora acierta, caso contrario retorna False"""
 
+    print(">>> Turno Jugadora <<<")
     numero_jugadora = int(input("-> Escribe tu número aquí: "))
     intentos_jugadora.append(numero_jugadora)
 
     if numero_jugadora < numero_aleatorio:
-        print("El número es MAYOR\n¡Turno Computadora!\n")
+        print("El número es MAYOR\n")
         return False
     elif numero_jugadora > numero_aleatorio:
-        print("El número es MENOR\n¡Turno Computadora!\n")
+        print("El número es MENOR\n")
         return False
     else:
         print("¡JUGADORA GANA!")
-        # Con .join se accede a los elementos de la lista, usando antes map para convertirlos en string
         print (f"Estos son tus intentos: {' - '.join(map(str,intentos_jugadora))}\n¡FELICIDADES!\n")
         return True
 
 
 def computadora(numero_aleatorio): 
+    """Devuelve True cuando la computadora acierta, caso contrario retorna False"""
 
+    print(">>> Turno Computadora <<<")
     numero_computadora = random.randint(1, 100)
     intentos_computadora.append(numero_computadora)
-    print(f"Computadora elige el número {numero_computadora}")
+    print(f"-> Computadora ha elegido el número: {numero_computadora}")
         
 
     if numero_computadora < numero_aleatorio:
-        print("El número es MAYOR\n¡Turno Jugadora!\n")
+        print("El número es MAYOR\n")
         return False
     elif numero_computadora > numero_aleatorio:
-        print("El número es MENOR\n¡Turno Jugadora!\n")
+        print("El número es MENOR\n")
         return False
     else:
         print("¡COMPUTADORA GANA!")
@@ -64,6 +64,7 @@ def computadora(numero_aleatorio):
 
 
 def repetir_juego():
+    """Reinicia el juego, incluyendo la lista de intentos """
 
     repetir = input("¿Quieres jugar de nuevo? Escribe si o no: ")
     if repetir == 'si':
@@ -71,8 +72,8 @@ def repetir_juego():
         intentos_computadora.clear()
         juego()
     else:
-        print("¡Espero que te hayas divertido!")
+        print("¡Fin del juego!¡Espero que te hayas divertido!")
         
 
-# Se llama a la función juego() al final después de que las demás funciones fueron declaradas
-juego()
+if __name__ == '__main__':
+    juego()
