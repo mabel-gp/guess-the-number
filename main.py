@@ -1,34 +1,42 @@
 import random
 
-# Variables de alcance global
-intentos_jugadora = []
-intentos_computadora = []
 
 def juego():
     """Si jugadora o computadora aciertan el ciclo se rompe, y se ejecuta repetir juego"""
 
-    global numero_aleatorio
+    intentos_jugadora = []
+    intentos_computadora = []
     numero_aleatorio = random.randint(1, 100)
+    print(numero_aleatorio)
     print('\n¡Hola! Elige un número entre 1 y 100\n')
     
     while True:
         
-        if jugadora(numero_aleatorio):
+        if turno_jugadora(numero_aleatorio, intentos_jugadora):
             break
        
-        if computadora(numero_aleatorio):  
+        if turno_computadora(numero_aleatorio, intentos_computadora):  
             break
     
     # Después del break llama a repetir_juego para que se reinicie
-    repetir_juego()
+    repetir_juego(intentos_jugadora, intentos_computadora)
 
 
-def jugadora(numero_aleatorio):
+def turno_jugadora(numero_aleatorio, intentos_jugadora):
     """Devuelve True cuando la jugadora acierta, caso contrario retorna False"""
 
     print(">>> Turno Jugadora <<<")
-    numero_jugadora = int(input("-> Escribe tu número aquí: "))
-    intentos_jugadora.append(numero_jugadora)
+
+    try:
+        numero_jugadora = int(input("-> Escribe tu número aquí: "))
+        intentos_jugadora.append(numero_jugadora)
+    except ValueError:
+        print("Tu entrada es inválida, por favor ingresa un número entre 1 y 100\n")
+        return False
+
+    if numero_jugadora < 1 or numero_jugadora > 100:
+        print("Por favor ingresa un número dentro del rango\n")
+        return False
 
     if numero_jugadora < numero_aleatorio:
         print("El número es MAYOR\n")
@@ -38,11 +46,11 @@ def jugadora(numero_aleatorio):
         return False
     else:
         print("¡JUGADORA GANA!")
-        print (f"Estos son tus intentos: {' - '.join(map(str,intentos_jugadora))}\n¡FELICIDADES!\n")
+        print (f"Estos son tus intentos: {' , '.join(map(str,intentos_jugadora))}\n¡FELICIDADES!\n")
         return True
 
 
-def computadora(numero_aleatorio): 
+def turno_computadora(numero_aleatorio, intentos_computadora): 
     """Devuelve True cuando la computadora acierta, caso contrario retorna False"""
 
     print(">>> Turno Computadora <<<")
@@ -59,20 +67,20 @@ def computadora(numero_aleatorio):
         return False
     else:
         print("¡COMPUTADORA GANA!")
-        print (f"Estos son los intentos de Computadora: {' - '.join(map(str,intentos_computadora))}\n¡FELICIDADES")
+        print (f"Estos son los intentos de Computadora: {' - '.join(map(str,intentos_computadora))}\n¡FELICIDADES!\n")
         return True
 
 
-def repetir_juego():
+def repetir_juego(intentos_jugadora, intentos_computadora):
     """Reinicia el juego, incluyendo la lista de intentos """
 
-    repetir = input("¿Quieres jugar de nuevo? Escribe si o no: ")
+    repetir = input("¿Quieres jugar de nuevo? Escribe si o no: ").lower()
     if repetir == 'si':
         intentos_jugadora.clear()
         intentos_computadora.clear()
         juego()
-    else:
-        print("¡Fin del juego!¡Espero que te hayas divertido!")
+    elif repetir == 'no':
+        print("\n¡Fin del juego!¡Espero que te hayas divertido!\n")
         
 
 if __name__ == '__main__':
