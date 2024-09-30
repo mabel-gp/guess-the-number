@@ -7,7 +7,6 @@ def juego():
     intentos_jugadora = []
     intentos_computadora = []
     numero_aleatorio = random.randint(1, 100)
-    print(numero_aleatorio)
     print('\n¡Hola! Elige un número entre 1 y 100\n')
     
     while True:
