@@ -16,9 +16,12 @@
 <p>5. Cuando se da con el número correcto se muestra al usuario la opción de jugar de nuevo, si fuera así el ciclo se repite.</p>
 <p>6. Si el usuario decide que no quiere seguir jugando entonces el ciclo se termina y se muestra un mensaje de despedida.</p>
 
-<p>Ejemplo de Guess-The-Number ejecutado en la terminal.</p>
+
+
+*Ejemplo de Guess-The-Number ejecutado en la terminal.*
 
 ![guess-the-number-executed-in-the-terminal](images/guess-the-number.png)
+
 
 <p>Guess the Number incluye pruebas unitarias que han sido desarrolladas usando la librería incorporada en Python llamada unittest.</p>
 
